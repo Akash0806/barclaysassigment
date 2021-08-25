@@ -2,6 +2,7 @@ package com.api.librarymanagement.services;
 
 import com.api.librarymanagement.dto.BookDto;
 import com.api.librarymanagement.dto.BooksDto;
+import com.api.librarymanagement.exception.NotFoundException;
 import com.api.librarymanagement.model.Book;
 import com.api.librarymanagement.repository.BookRepository;
 import org.modelmapper.ModelMapper;
@@ -12,11 +13,14 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class BookServiceImpl implements BookService {
 	@Autowired BookRepository bookRepository;
+	@Autowired  ModelMapper modelMapper;
 
 	@Override
 	  public List<BookDto> getBooks() {
@@ -30,4 +34,13 @@ public class BookServiceImpl implements BookService {
 				.collect(Collectors.toList());
 		return bookDtos;
 	}
+
+	@Override
+	public BookDto saveBook(BookDto userBookDto) throws NotFoundException {
+	    Book book= modelMapper.map(userBookDto, Book.class);
+		bookRepository.save(book);
+		return modelMapper.map(book, BookDto.class);
+	}
+
+
 }
