@@ -34,6 +34,11 @@ public class BooksController {
 		return ResponseEntity.ok(bookService.getBooks());
 	}
 
+	@GetMapping("/{bookId}")
+	public ResponseEntity<BookDto> getBook(@PathVariable long bookId) throws NotFoundException {
+		return ResponseEntity.ok(bookService.getBook(bookId));
+	}
+
 	@PostMapping(consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<BookDto> updateUserAndBook(@RequestBody @Valid BookDto bookDto)
 			throws NotFoundException {

@@ -36,6 +36,20 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public BookDto getBook(Long id) throws NotFoundException {
+		Book book = isBookExistInDB(id);
+		return modelMapper.map(book, BookDto.class);
+	}
+
+	private Book isBookExistInDB(Long userId) throws NotFoundException {
+		Optional<Book> bookOpt = bookRepository.findById(userId);
+		if (!bookOpt.isPresent()) {
+			throw new NotFoundException("User doesn't exist");
+		}
+		return bookOpt.get();
+	}
+
+	@Override
 	public BookDto saveBook(BookDto userBookDto) throws NotFoundException {
 	    Book book= modelMapper.map(userBookDto, Book.class);
 		bookRepository.save(book);
