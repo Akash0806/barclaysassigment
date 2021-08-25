@@ -16,6 +16,9 @@ This is spring boot micro-service project to mange all operation for library
     Build mvn clean install 
     Execute command to run the project: 
         mvn spring-boot:run
+
+URI -
+http://localhost:9090/api/library/books
         
 
 
