@@ -34,7 +34,6 @@ public class BooksController {
 		return ResponseEntity.ok(bookService.getBooks());
 	}
 
-
 	@PostMapping(consumes = APPLICATION_JSON_VALUE)
 	public ResponseEntity<BookDto> updateUserAndBook(@RequestBody @Valid BookDto bookDto)
 			throws NotFoundException {
